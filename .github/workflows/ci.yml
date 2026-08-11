@@ -64,12 +64,18 @@ jobs:
           push: true
           tags: ${{ env.repo_name }}/${{ github.event.repository.name }}:${{ needs.test.outputs.SHORT_SHA }}
 
-
+      - name: Debug files
+        shell: powershell
+        run: |
+          Write-Host "Current directory:"
+          Get-Location
+          Write-Host "Files:"
+          Get-ChildItem
       - name: Deploy to kubernetes
         shell: cmd
         run: |
           set IMAGE=${{ env.repo_name }}/${{ github.event.repository.name }}:${{ needs.test.outputs.SHORT_SHA }}
-          powershell -Command "(Get-Content deployment.yml) -replace 'sfyimage', '%IMAGE%' | Set-Content deployment.yml"
+          powershell -Command "(Get-Content ./deployment.yml) -replace 'sfyimage', '%IMAGE%' | Set-Content deployment.yml"
           kubectl apply -f deployment.yml
      
 
