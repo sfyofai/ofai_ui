@@ -1,0 +1,40 @@
+name: SFY UI CI 
+on: 
+ push:
+  branches:
+    - main
+ pull_request:
+  branches:
+    - main
+
+jobs:
+  test:
+    runs-on: self-hosted
+    steps:
+      - name : Checkout the code
+        uses: actions/checkout@v7
+
+      - name: Setup Node js
+        uses: actions/setup-node@v4
+        with: 
+          node-version: "20"
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+
+      - name: Run lint
+        run: npm run lint
+
+      - name: Cache node modules
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{runner.os}}-npm-${{ hashFiles('package-lock.json') }}
+          
+
+
+
+  
