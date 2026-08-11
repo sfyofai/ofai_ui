@@ -13,6 +13,11 @@ env:
 jobs:
   test:
     runs-on: [ self-hosted, os=linux]
+
+    outputs:
+      SHORT_SHA: ${{steps.version.oupts.SHORT_SHA}}
+
+
     steps:
       - name : Checkout the code
         uses: actions/checkout@v7
@@ -39,9 +44,9 @@ jobs:
           key: ${{runner.os}}-npm-${{ hashFiles('package-lock.json') }}
 
       - name: Get short commit SHA
-        run: echo "SHORT_SHA=${GITHUB_SHA:0:7}" >> "$GITHUB_ENV"
-      - name: check the commit value  
-        run: echo ${{ env.SHORT_SHA }}    
+        id: version
+        run: echo "SHORT_SHA=${GITHUB_SHA:0:7}" >> "$GITHUB_OUTPUT"
+    
 
   build:
     runs-on: [self-hosted, os=windows]
@@ -57,7 +62,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ env.repo_name }}/${{ github.event.repository.name }}:${{ env.SHORT_SHA }}
+          tags: ${{ env.repo_name }}/${{ github.event.repository.name }}:${{ needs.test.outputs.SHORT_SHA }}
 
 
 
