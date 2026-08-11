@@ -34,7 +34,17 @@ jobs:
         with:
           path: ~/.npm
           key: ${{runner.os}}-npm-${{ hashFiles('package-lock.json') }}
-          
+
+  build:
+    runs-on: [self-hosted, os=linux]
+    needs: test
+    steps:
+      - name: Login Docker
+        uses: docker/login-actions@v3
+        with:
+          username: ${{vars.DOCKER_USERNAME}}
+          password: ${{secrets.DOCKER_PASSWORD}}
+     
 
 
 
