@@ -75,7 +75,7 @@ jobs:
         shell: cmd
         run: |
           set IMAGE=${{ env.repo_name }}/${{ github.event.repository.name }}:${{ needs.test.outputs.SHORT_SHA }}
-          powershell -Command "(Get-Content ./deployment.yml) -replace 'sfyimage', '%IMAGE%' | Set-Content deployment.yml"
+          powershell -Command "(Get-Content deployment.yml) -replace 'sfyimage', '%IMAGE%' | Set-Content deployment.yml"
           kubectl apply -f deployment.yml
      
 
