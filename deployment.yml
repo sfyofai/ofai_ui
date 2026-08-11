@@ -19,7 +19,7 @@ spec:
       containers:
         - name : sfyui-app
           image: sfyimage
-          imagePullPolicy: always
+          imagePullPolicy: Always
 
 
 
