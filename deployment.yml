@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: deployment
+metadata:
+  name: sfyUI
+  labels:
+    app: sfyui
+
+spec: 
+  replicas: 2
+  selector:
+    matchLabels:
+      app: sfyui
+  
+  template:
+    metadata:
+      labels:
+        app: sfyui
+    spec:
+      containers:
+        - name : sfyui-app
+          image: sfyimage
+          imagePullPolicy: always
+
+          
+
