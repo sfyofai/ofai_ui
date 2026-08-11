@@ -36,7 +36,7 @@ jobs:
           key: ${{runner.os}}-npm-${{ hashFiles('package-lock.json') }}
 
   build:
-    runs-on: [self-hosted, os=linux]
+    runs-on: [self-hosted, os=windows]
     needs: test
     steps:
       - name: Login Docker
@@ -44,7 +44,12 @@ jobs:
         with:
           username: ${{vars.DOCKER_USERNAME}}
           password: ${{secrets.DOCKER_PASSWORD}}
-     
+      - name: Docker build and publish
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tag: ${{github.ref}}
 
 
 
