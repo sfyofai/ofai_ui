@@ -9,7 +9,7 @@ on:
 
 jobs:
   test:
-    runs-on: [ self-hosted, os=windows]
+    runs-on: [ self-hosted, os=linux]
     steps:
       - name : Checkout the code
         uses: actions/checkout@v7
@@ -36,7 +36,7 @@ jobs:
           key: ${{runner.os}}-npm-${{ hashFiles('package-lock.json') }}
 
   build:
-    runs-on: [self-hosted, os=windows]
+    runs-on: [self-hosted, os=linux]
     needs: test
     steps:
       - name: Login Docker
