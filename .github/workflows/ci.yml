@@ -65,5 +65,14 @@ jobs:
           tags: ${{ env.repo_name }}/${{ github.event.repository.name }}:${{ needs.test.outputs.SHORT_SHA }}
 
 
+      - name: Deploy to kubernetes
+        run: |
+          IMAGE=${{ env.repo_name }}/${{ github.event.repository.name }}:${{ needs.test.outputs.SHORT_SHA }}
+          kubectl create deployment sfyui \
+          --image="$IMAGE" \
+          --dry-run=client -o yaml | kubectl apply -f -
+     
+
+
 
   
