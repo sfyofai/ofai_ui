@@ -15,7 +15,7 @@ jobs:
     runs-on: [ self-hosted, os=linux]
 
     outputs:
-      SHORT_SHA: ${{steps.version.oupts.SHORT_SHA}}
+      SHORT_SHA: ${{steps.version.outputs.SHORT_SHA}}
 
 
     steps:
