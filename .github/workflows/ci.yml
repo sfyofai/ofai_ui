@@ -39,9 +39,9 @@ jobs:
           key: ${{runner.os}}-npm-${{ hashFiles('package-lock.json') }}
 
       - name: Get short commit SHA
-        run: |
-          echo "SHORT_SHA=${GITHUB_SHA:0:7}" >> "$GITHUB_ENV"
-          echo ${{ env.SHORT_SHA }}    
+        run: echo "SHORT_SHA=${GITHUB_SHA:0:7}" >> "$GITHUB_ENV"
+      - name: check the commit value  
+        run: echo ${{ env.SHORT_SHA }}    
 
   build:
     runs-on: [self-hosted, os=windows]
