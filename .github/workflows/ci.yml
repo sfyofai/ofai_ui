@@ -54,7 +54,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ env.repo_name }}/${{ github.event.repository.name }}:${{ SHORT_SHA }}
+          tags: ${{ env.repo_name }}/${{ github.event.repository.name }}:${{ env.SHORT_SHA }}
 
 
 
