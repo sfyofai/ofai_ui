@@ -38,15 +38,16 @@ jobs:
           path: ~/.npm
           key: ${{runner.os}}-npm-${{ hashFiles('package-lock.json') }}
 
-  build:
-    runs-on: [self-hosted, os=windows]
-    needs: test
-    steps:
       - name: Get short commit SHA
         shell: bash
         run: |
           echo "SHORT_SHA=${GITHUB_SHA::7}" >> "$GITHUB_ENV"
-          echo ${{ env.SHORT_SHA }}
+          echo ${{ env.SHORT_SHA }}    
+
+  build:
+    runs-on: [self-hosted, os=windows]
+    needs: test
+    steps:
       - name: Login Docker
         uses: docker/login-action@v3
         with:
