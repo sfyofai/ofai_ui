@@ -12,5 +12,10 @@ app.get('/', (req, res) => {
   res.send('Hello world\n');
 });
 
-app.listen(PORT, HOST);
-console.log(`Running on http://${HOST}:${PORT}`);
+// Start server only if not in test environment
+if (require.main === module) {
+  app.listen(PORT, HOST);
+  console.log(`Running on http://${HOST}:${PORT}`);
+}
+
+module.exports = app;
