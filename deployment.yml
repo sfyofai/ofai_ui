@@ -20,6 +20,11 @@ spec:
         - name : sfyui-app
           image: sfyimage
           imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+
+
+
 
 
 
